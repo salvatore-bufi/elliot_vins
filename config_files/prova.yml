@@ -1,0 +1,27 @@
+experiment:
+  dataset: Epinion
+  data_config:
+    strategy: fixed
+    train_path: ../data/{0}/Epinion_train.txt
+    test_path: ../data/{0}/Epinion_test.txt
+  binarize: True
+  top_k: 10
+  evaluation:
+    cutoffs: [10]
+    simple_metrics: [nDCGRendle2020]
+#  gpu: -1
+  external_models_path: ../external/models/__init__.py
+  models:
+    iALS:
+      meta:
+        verbose: True
+        save_recs: False
+      factors: 50
+      alpha: 1
+      epsilon: 1
+      reg: [loguniform, -9.721165996, -5.11599581 ]
+      early_stopping:
+        patience: 5
+        mode: auto
+        monitor: nDCGRendle2020@10
+        verbose: True
